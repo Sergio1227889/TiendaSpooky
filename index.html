@@ -101,306 +101,289 @@
 
         /* PRODUCT CARD con hover image swap */
         .producto-card { background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .3s;cursor:none; }
-        .producto-card:hover { transform:translateY(-6px);border-color:rgba(255,107,0,.5);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 20px rgba(255,107,0,.1); }
-        .producto-imagen { width:100%;aspect-ratio:1;background:#0d000c;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative; }
-        .producto-imagen .img-default,
-        .producto-imagen .img-hover { width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;transition:opacity .5s ease; }
-        .producto-imagen .img-hover { opacity:0; }
-        .producto-card:hover .img-hover { opacity:1; }
-        .producto-card:hover .img-default { opacity:0.4; }
-        .producto-info { padding:1.2rem;text-align:center; }
-        .producto-nombre { font-size:.8rem;font-weight:600;letter-spacing:.05em;color:var(--text-dim);margin-bottom:.5rem;text-transform:uppercase; }
-        .producto-precio { color:var(--accent-orange);font-size:1.1rem;font-family:'Cinzel',serif;margin-bottom:.8rem; }
-        .btn-comprar { width:100%;padding:.55rem;background:linear-gradient(135deg,rgba(255,107,0,.15),rgba(204,0,34,.1));border:1px solid rgba(255,107,0,.3);color:var(--accent-orange);font-family:'Raleway',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;cursor:none;transition:all .3s; }
-        .btn-comprar:hover { background:linear-gradient(135deg,#ff6b00,#cc0022);color:#fff;border-color:transparent; }
+        .producto-card:hover { transform:translateY(-6px);border-color:rgba(255,107,0,.5);box-shadow:0 12px 40px rgba(0,0,0,.4); }
+        .producto-imagen { position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#110010; }
+        .producto-imagen img { width:100%;height:100%;object-fit:cover;transition:transform .5s; }
+        .producto-card:hover .producto-imagen img { transform:scale(1.1); }
+        .producto-info { padding:1.2rem; }
+        .producto-nombre { font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--text-primary);margin-bottom:.5rem;height:2.4rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical; }
+        .producto-precio { font-family:'Cinzel',serif;font-size:1.2rem;color:var(--accent-orange);margin-bottom:1rem; }
+        .btn-comprar { width:100%;padding:.6rem;border-radius:6px;border:1px solid var(--border);background:rgba(255,107,0,.05);color:var(--accent-orange);font-family:'Raleway',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;cursor:none;transition:all .3s; }
+        .btn-comprar:hover { background:var(--accent-orange);color:#fff; }
 
-        /* MODAL PRODUCTO */
-        .modal { display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center; }
-        .modal.open { display:flex; }
-        .modal-content { background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:2.5rem;max-width:700px;width:90%;max-height:85vh;overflow-y:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:modalIn .3s ease; }
-        @keyframes modalIn { from{opacity:0;transform:scale(.95) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-        .modal-close { position:absolute;top:1rem;right:1.2rem;font-size:1.6rem;color:var(--text-dim);cursor:none;transition:color .3s;line-height:1; }
-        .modal-close:hover { color:var(--accent-orange); }
+        /* MODAL */
+        .modal { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:2000;opacity:0;pointer-events:none;transition:opacity .4s; }
+        .modal.open { opacity:1;pointer-events:all; }
+        .modal-content { background:var(--bg-card);border:1px solid var(--border);width:90%;max-width:500px;border-radius:20px;padding:2.5rem;position:relative;transform:scale(0.9);transition:transform .4s;box-shadow:0 0 50px rgba(255,107,0,.2); }
+        .modal.open .modal-content { transform:scale(1); }
+        .close-modal { position:absolute;top:1.2rem;right:1.2rem;font-size:1.5rem;color:var(--text-dim);cursor:none;transition:color .3s; }
+        .close-modal:hover { color:var(--accent-orange); }
+        .modal-title { font-family:'Cinzel',serif;font-size:1.5rem;color:var(--accent-orange);margin-bottom:1rem;text-align:center; }
+        .modal-features { list-style:none;margin:1.5rem 0 2rem; }
+        .modal-features li { padding:.6rem 0;color:var(--text-dim);border-bottom:1px solid rgba(255,107,0,.1);font-size:.95rem;display:flex;align-items:center;gap:.8rem; }
+        .modal-features li::before { content:'💀';font-size:.8rem; }
+        .modal-buy-btn { width:100%;padding:1rem;border-radius:10px;background:linear-gradient(135deg,#ff6b00,#cc0022);color:#fff;border:none;font-family:'Cinzel',serif;font-weight:900;font-size:1.1rem;cursor:none;transition:all .3s; }
+        .modal-buy-btn:hover { transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,107,0,.4); }
 
-        /* modal producto layout - like ghostlystore */
-        .modal-producto-layout { display:flex;gap:2rem;align-items:flex-start; }
-        .modal-producto-img { width:220px;flex-shrink:0;border-radius:12px;overflow:hidden;border:1px solid var(--border); }
-        .modal-producto-img img { width:100%;display:block; }
-        .modal-producto-info { flex:1; }
-        .modal-producto-info h2 { font-family:'Cinzel',serif;font-size:1.6rem;color:var(--text-primary);margin-bottom:.5rem; }
-        .modal-producto-precio { font-family:'Cinzel',serif;font-size:2rem;color:var(--accent-orange);margin-bottom:1.5rem;text-shadow:0 0 20px rgba(255,107,0,.3); }
-        .modal-features { list-style:none;margin-bottom:2rem; }
-        .modal-features li { padding:.5rem 0;border-bottom:1px solid rgba(255,107,0,.08);color:var(--text-dim);font-size:.9rem;display:flex;align-items:center;gap:.6rem; }
-        .modal-features li::before { content:'❯';color:var(--accent-orange);font-size:.8rem; }
-        .modal-btn-comprar { width:100%;padding:1rem;background:linear-gradient(135deg,#ff6b00,#cc0022);color:#fff;border:none;border-radius:8px;font-family:'Raleway',sans-serif;font-weight:800;letter-spacing:.15em;text-transform:uppercase;cursor:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,107,0,.3); }
-        .modal-btn-comprar:hover { transform:translateY(-3px);box-shadow:0 8px 30px rgba(255,107,0,.5); }
-        .modal-social { display:flex;gap:1rem;margin-top:1.5rem;justify-content:center; }
-        .modal-social a { color:var(--text-dim);font-size:1.2rem;transition:color .3s; }
-        .modal-social a:hover { color:var(--accent-orange); }
-
-        footer { padding:3rem 2.5rem;background:rgba(10,0,8,0.95);border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:.8rem;letter-spacing:.05em; }
+        /* FOOTER */
+        footer { padding:3rem 2rem;text-align:center;border-top:1px solid var(--border);background:rgba(10,0,8,0.5); }
+        footer p { color:var(--text-dim);font-size:.8rem;letter-spacing:.1em; }
 
         @media (max-width:768px) {
             header { padding:1rem; }
             nav { display:none; }
-            .modal-producto-layout { flex-direction:column;align-items:center;text-align:center; }
-            .modal-producto-img { width:180px; }
+            .hero-title { font-size:4rem; }
             .hero-stats { flex-direction:column; }
-            .stat-box { border-right:none;border-bottom:1px solid var(--border); }
-            .product-section { flex-direction:column;align-items:center;text-align:center; }
+            .stat-box { border-right:none; border-bottom:1px solid var(--border); }
+            .product-section { flex-direction:column; align-items:center; text-align:center; }
+            .features li { justify-content:center; }
+            .social-links-product { justify-content:center; }
         }
     </style>
 </head>
 <body>
 
+<div id="particles-container"></div>
 <div class="custom-cursor" id="cursor"></div>
 <div class="cursor-follower" id="follower"></div>
-<div id="particles-container"></div>
 
-<!-- MODAL PRODUCTO -->
-<div id="producto-modal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" id="prod-modal-close">&times;</span>
-        <div class="modal-producto-layout">
-            <div class="modal-producto-img">
-                <img id="modal-prod-img" src="" alt="">
+<header>
+    <div class="logo"><span class="logo-emoji">🎃</span> SpookyStore</div>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#metodos">Métodos</a>
+        <a href="#soporte">Soporte</a>
+    </nav>
+    <div class="header-social">
+        <a href="https://discord.gg/CK5FDH98eW" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </div>
+</header>
+
+<section class="hero-section" id="inicio">
+    <div class="moon"></div>
+    <div class="fog"></div>
+    <div class="fog2"></div>
+    <div class="bats" id="bats-container"></div>
+    
+    <div class="hero-eyebrow">The Ultimate Digital Graveyard</div>
+    <h1 class="hero-title">SPOOKY STORE</h1>
+    <p class="hero-subtitle">Premium Digital Goods at Dead Low Prices <span class="typewriter-cursor">|</span></p>
+    
+    <div class="hero-stats">
+        <div class="stat-box"><span class="stat-num">1.2k+</span><span class="stat-lbl">Sales</span></div>
+        <div class="stat-box"><span class="stat-num">98%</span><span class="stat-lbl">Positive</span></div>
+        <div class="stat-box"><span class="stat-num">24/7</span><span class="stat-lbl">Support</span></div>
+    </div>
+    
+    <div class="hero-cta">
+        <a href="#productos" class="cta-btn primary"><i class="fas fa-ghost"></i> Shop Now</a>
+        <a href="https://discord.gg/CK5FDH98eW" target="_blank" class="cta-btn secondary"><i class="fab fa-discord"></i> Join Discord</a>
+    </div>
+
+    <div class="floating-icons" id="floating-icons"></div>
+</section>
+
+<section id="productos">
+    <div class="container">
+        <h1>Best Seller 🦇</h1>
+        <div class="product-section">
+            <div class="product-images-column">
+                <img src="img/netflix.png" alt="Netflix Premium">
             </div>
-            <div class="modal-producto-info">
-                <h2 id="modal-prod-nombre"></h2>
-                <div class="modal-producto-precio" id="modal-prod-precio"></div>
-                <ul class="modal-features" id="modal-prod-features"></ul>
-                <button class="modal-btn-comprar" id="modal-btn-comprar">¡COMPRA EN TICKET!</button>
-                <div class="modal-social">
-                    <a href="https://discord.gg/CK5FDH98eW" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+            <div class="product-info">
+                <h2>NETFLIX PREMIUM – PERFIL PRIVADO</h2>
+                <div class="price">$3 USD</div>
+                <p class="method-intro">Disfruta de tus películas y series favoritas con la mejor calidad. Perfil totalmente privado y garantizado por todo el mes.</p>
+                
+                <div class="section-title">Características</div>
+                <ul class="features">
+                    <li>1 mes de duración completa.</li>
+                    <li>Calidad Ultra HD (4K).</li>
+                    <li>Perfil privado con PIN.</li>
+                    <li>Garantía total del servicio.</li>
+                </ul>
+                
+                <button class="buy-button">COMPRAR AHORA</button>
+                <div class="social-links-product">
+                    <a href="https://discord.gg/CK5FDH98eW" target="_blank"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<header>
-    <div class="logo">
-        <span class="logo-emoji">🎃</span> SPOOKY STORE
-    </div>
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#productos">Productos</a>
-        <a href="#">Garantía</a>
-        <a href="#">Soporte</a>
-    </nav>
-    <div class="header-social">
-        <a href="https://discord.gg/CK5FDH98eW" target="_blank"><i class="fab fa-discord"></i> DISCORD</a>
-    </div>
-</header>
-
-<section class="hero-section">
-    <div class="moon"></div>
-    <div class="bats" id="bats-container"></div>
-    <div class="fog"></div>
-    <div class="fog2"></div>
-    <p class="hero-eyebrow">🕯️ La tienda que te da escalofríos de precio</p>
-    <h1 class="hero-title" data-text="SPOOKY STORE">SPOOKY STORE</h1>
-    <p class="hero-subtitle"><span id="typewriter-text"></span><span class="typewriter-cursor">|</span></p>
-    <div class="hero-stats">
-        <div class="stat-box"><span class="stat-num" id="stat1">0</span><span class="stat-lbl">Ventas</span></div>
-        <div class="stat-box"><span class="stat-num">100%</span><span class="stat-lbl">Garantía</span></div>
-        <div class="stat-box"><span class="stat-num">24/7</span><span class="stat-lbl">Soporte</span></div>
-    </div>
-    <div class="hero-cta">
-        <a href="#productos" class="cta-btn primary"><i class="fas fa-shopping-cart"></i> Ver Catálogo</a>
-        <a href="https://discord.gg/CK5FDH98eW" target="_blank" class="cta-btn secondary"><i class="fab fa-discord"></i> Unirse al Discord</a>
-    </div>
-</section>
-
-<section class="container" id="best-seller">
-    <h1>MÉTODO RECOMENDADO</h1>
-    <div class="product-section">
-        <div class="product-images-column">
-            <img src="img/discord.png" alt="Discord Nitro">
-        </div>
-        <div class="product-info">
-            <h2>MÉTODO NITRO 1 AÑO (SIN LOGIN)</h2>
-            <div class="price">$15.00 USD</div>
-            <p class="method-intro">El método más seguro y eficiente para obtener Nitro de 1 año sin necesidad de entregar tus credenciales. 100% garantizado.</p>
-            <div class="section-title">Características</div>
-            <ul class="features">
-                <li>Sin necesidad de acceso a la cuenta.</li>
-                <li>Activación mediante código oficial.</li>
-                <li>Duración completa de 12 meses.</li>
-                <li>Garantía total de SpookyStore.</li>
-            </ul>
-            <button class="buy-button btn-comprar" 
-                    data-nombre="MÉTODO NITRO 1 AÑO (SIN LOGIN)" 
-                    data-precio="$15.00 USD"
-                    data-features="Sin necesidad de acceso a la cuenta.|Activación mediante código oficial.|Duración completa de 12 meses.|Garantía total de SpookyStore.">
-                COMPRAR AHORA
-            </button>
-            <div class="social-links-product">
-                <a href="https://discord.gg/CK5FDH98eW" target="_blank"><i class="fab fa-discord"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="productos-section" id="productos">
-    <div class="productos-container">
-        <h2>CATÁLOGO EXCLUSIVO</h2>
-        <p class="productos-subtitle">Selecciona una categoría para filtrar nuestros productos</p>
-        
-        <div class="categorias">
-            <button class="categoria-btn active" data-category="all">Todos</button>
-            <button class="categoria-btn" data-category="streaming">Streaming</button>
-            <button class="categoria-btn" data-category="freefire">Free Fire</button>
-            <button class="categoria-btn" data-category="discord-cat">Discord</button>
-            <button class="categoria-btn" data-category="robux">Robux</button>
-            <button class="categoria-btn" data-category="otros">Otros</button>
-            <button class="categoria-btn" data-category="minecraft">Minecraft</button>
-        </div>
-
-        <div class="productos-grid">
-            <!-- STREAMING -->
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="CRUNCHYROLL MEGAFAN – PERFIL"
-                 data-precio="$2 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/crunchyroll.png" alt="Crunchyroll"></div>
-                <div class="producto-info"><div class="producto-nombre">CRUNCHYROLL MEGAFAN – PERFIL</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="SPOTIFY PREMIUM – 1 MES"
-                 data-precio="$3 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/spotify.png" alt="Spotify"></div>
-                <div class="producto-info"><div class="producto-nombre">SPOTIFY PREMIUM – 1 MES</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="DISNEY+ PERFIL PRIVADO"
-                 data-precio="$3 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/disney.png" alt="Disney+"></div>
-                <div class="producto-info"><div class="producto-nombre">DISNEY+ PERFIL PRIVADO</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="HBO MAX PERFIL PRIVADO"
-                 data-precio="$2 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/hbo.png" alt="HBO"></div>
-                <div class="producto-info"><div class="producto-nombre">HBO MAX PERFIL PRIVADO</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="YOUTUBE PREMIUM – 1 MES"
-                 data-precio="$3 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/youtube.png" alt="YouTube Premium"></div>
-                <div class="producto-info"><div class="producto-nombre">YOUTUBE PREMIUM – 1 MES</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="streaming" style="display:block"
-                 data-nombre="NETFLIX – PERFIL PRIVADO"
-                 data-precio="$3 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/netflix.png" alt="Netflix"></div>
-                <div class="producto-info"><div class="producto-nombre">NETFLIX – PERFIL PRIVADO</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+    <div class="productos-section">
+        <div class="productos-container">
+            <h2>Catálogo Completo</h2>
+            <p class="productos-subtitle">Explora todos nuestros productos digitales</p>
+            
+            <div class="categorias">
+                <button class="categoria-btn active" data-category="all">Todos</button>
+                <button class="categoria-btn" data-category="streaming">Streaming</button>
+                <button class="categoria-btn" data-category="ia">IA</button>
+                <button class="categoria-btn" data-category="freefire">Free Fire</button>
+                <button class="categoria-btn" data-category="discord-cat">Discord</button>
+                <button class="categoria-btn" data-category="robux">Robux</button>
+                <button class="categoria-btn" data-category="minecraft">Minecraft</button>
+                <button class="categoria-btn" data-category="otros">Otros</button>
             </div>
 
-            <!-- FREE FIRE -->
-            <div class="producto-card" data-category="freefire" style="display:block"
-                 data-nombre="310 DIAMANTES"
-                 data-precio="$2.5 USD"
-                 data-features="310 diamantes para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/freefire.png" alt="310 Diamantes"></div>
-                <div class="producto-info"><div class="producto-nombre">310 DIAMANTES</div><div class="producto-precio">$2.5 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="freefire" style="display:block"
-                 data-nombre="1240 DIAMANTES"
-                 data-precio="$7 USD"
-                 data-features="1240 diamantes para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/freefire.png" alt="1240 Diamantes"></div>
-                <div class="producto-info"><div class="producto-nombre">1240 DIAMANTES</div><div class="producto-precio">$7 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="freefire" style="display:block"
-                 data-nombre="PASE ELITE"
-                 data-precio="$2 USD"
-                 data-features="Pase Elite mensual.|Acceso a recompensas exclusivas.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/freefire.png" alt="Pase Elite"></div>
-                <div class="producto-info"><div class="producto-nombre">PASE ELITE</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
+            <div class="productos-grid">
+                <!-- STREAMING -->
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="CRUNCHYROLL MEGAFAN – PERFIL"
+                     data-precio="$2 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/crunchyroll.png" alt="Crunchyroll"></div>
+                    <div class="producto-info"><div class="producto-nombre">CRUNCHYROLL MEGAFAN – PERFIL</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="SPOTIFY PREMIUM – 1 MES"
+                     data-precio="$3 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/spotify.png" alt="Spotify"></div>
+                    <div class="producto-info"><div class="producto-nombre">SPOTIFY PREMIUM – 1 MES</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="DISNEY+ PERFIL PRIVADO"
+                     data-precio="$3 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/disney.png" alt="Disney+"></div>
+                    <div class="producto-info"><div class="producto-nombre">DISNEY+ PERFIL PRIVADO</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="HBO MAX PERFIL PRIVADO"
+                     data-precio="$2 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/hbo.png" alt="HBO"></div>
+                    <div class="producto-info"><div class="producto-nombre">HBO MAX PERFIL PRIVADO</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="YOUTUBE PREMIUM – 1 MES"
+                     data-precio="$3 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/youtube.png" alt="YouTube Premium"></div>
+                    <div class="producto-info"><div class="producto-nombre">YOUTUBE PREMIUM – 1 MES</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="streaming" style="display:block"
+                     data-nombre="NETFLIX – PERFIL PRIVADO"
+                     data-precio="$3 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/netflix.png" alt="Netflix"></div>
+                    <div class="producto-info"><div class="producto-nombre">NETFLIX – PERFIL PRIVADO</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
 
-            <!-- DISCORD -->
-            <div class="producto-card" data-category="discord-cat" style="display:block"
-                 data-nombre="SERVER BOOST x14 – 1 MES"
-                 data-precio="$6 USD"
-                 data-features="14 boosts para tu servidor.|1 mes de duración.|Activa nivel 3 completo.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/discord.png" alt="Boost 1 Mes"></div>
-                <div class="producto-info"><div class="producto-nombre">SERVER BOOST x14 – 1 MES</div><div class="producto-precio">$6 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="discord-cat" style="display:block"
-                 data-nombre="SERVER BOOST x14 – 3 MESES"
-                 data-precio="$12 USD"
-                 data-features="14 boosts para tu servidor.|3 meses de duración.|Activa nivel 3 completo.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/discord.png" alt="Boost 3 Meses"></div>
-                <div class="producto-info"><div class="producto-nombre">SERVER BOOST x14 – 3 MESES</div><div class="producto-precio">$12 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="discord-cat" style="display:block"
-                 data-nombre="PROMO CODE NITRO – 3 MESES"
-                 data-precio="$2 USD"
-                 data-features="3 meses de Nitro Discord.|Acceso a emojis y stickers premium.|Mejoras de cuenta ilimitadas.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/discord.png" alt="Nitro"></div>
-                <div class="producto-info"><div class="producto-nombre">PROMO CODE NITRO – 3 MESES</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
+                <!-- IA -->
+                <div class="producto-card" data-category="ia" style="display:block"
+                     data-nombre="CANVA PRO – 1 MES"
+                     data-precio="$3 USD"
+                     data-features="1 mes de duración.|Acceso a todos los recursos Pro.|Diseños ilimitados.|Garantía total.">
+                    <div class="producto-imagen"><img class="single" src="img/canva.png" alt="Canva Pro"></div>
+                    <div class="producto-info"><div class="producto-nombre">CANVA PRO – 1 MES</div><div class="producto-precio">$3 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="ia" style="display:block"
+                     data-nombre="GEMINI ADVANCED – 1 MES"
+                     data-precio="$5 USD"
+                     data-features="1 mes de duración.|Acceso a Gemini 1.5 Pro.|Integración con Google Workspace.|Garantía total.">
+                    <div class="producto-imagen"><img class="single" src="img/gemini.png" alt="Gemini 1 Mes"></div>
+                    <div class="producto-info"><div class="producto-nombre">GEMINI ADVANCED – 1 MES</div><div class="producto-precio">$5 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="ia" style="display:block"
+                     data-nombre="GEMINI ADVANCED – ANUAL"
+                     data-precio="$45 USD"
+                     data-features="12 meses de duración.|Acceso a Gemini 1.5 Pro.|Ahorro significativo.|Garantía de 1 año.">
+                    <div class="producto-imagen"><img class="single" src="img/gemini.png" alt="Gemini Anual"></div>
+                    <div class="producto-info"><div class="producto-nombre">GEMINI ADVANCED – ANUAL</div><div class="producto-precio">$45 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="ia" style="display:block"
+                     data-nombre="CHATGPT PLUS – 1 MES"
+                     data-precio="$6 USD"
+                     data-features="1 mes de duración.|Acceso a GPT-4 y DALL-E.|Nuevas funciones anticipadas.|Garantía total.">
+                    <div class="producto-imagen"><img class="single" src="img/chatgpt.png" alt="ChatGPT 1 Mes"></div>
+                    <div class="producto-info"><div class="producto-nombre">CHATGPT PLUS – 1 MES</div><div class="producto-precio">$6 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="ia" style="display:block"
+                     data-nombre="CHATGPT PLUS – ANUAL"
+                     data-precio="$60 USD"
+                     data-features="12 meses de duración.|Acceso a GPT-4 y DALL-E.|Soporte prioritario.|Garantía de 1 año.">
+                    <div class="producto-imagen"><img class="single" src="img/chatgpt.png" alt="ChatGPT Anual"></div>
+                    <div class="producto-info"><div class="producto-nombre">CHATGPT PLUS – ANUAL</div><div class="producto-precio">$60 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
 
-            <!-- ROBUX -->
-            <div class="producto-card" data-category="robux" style="display:block"
-                 data-nombre="1,000 ROBUX"
-                 data-precio="$8 USD"
-                 data-features="1.000 Robux para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/robux.png" alt="1000 Robux"></div>
-                <div class="producto-info"><div class="producto-nombre">1,000 ROBUX</div><div class="producto-precio">$8 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="robux" style="display:block"
-                 data-nombre="5,000 ROBUX"
-                 data-precio="$40 USD"
-                 data-features="5.000 Robux para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
-                <div class="producto-imagen"><img class="single" src="img/robux.png" alt="5000 Robux"></div>
-                <div class="producto-info"><div class="producto-nombre">5,000 ROBUX</div><div class="producto-precio">$40 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
+                <!-- FREE FIRE -->
+                <div class="producto-card" data-category="freefire" style="display:block"
+                     data-nombre="310 DIAMANTES"
+                     data-precio="$2.5 USD"
+                     data-features="310 diamantes para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
+                    <div class="producto-imagen"><img class="single" src="img/freefire.png" alt="310 Diamantes"></div>
+                    <div class="producto-info"><div class="producto-nombre">310 DIAMANTES</div><div class="producto-precio">$2.5 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
 
-            <!-- MINECRAFT -->
-            <div class="producto-card" data-category="minecraft" style="display:block"
-                 data-nombre="MINECRAFT ACCOUNT - BASIC"
-                 data-precio="$5 USD"
-                 data-features="Acceso completo a la cuenta.|Cambio de Skin habilitado.|Entrega inmediata por ticket.|Garantía de 30 días.">
-                <div class="producto-imagen"><img class="single" src="img/minecraft_basic.png" alt="Minecraft Basic"></div>
-                <div class="producto-info"><div class="producto-nombre">MINECRAFT ACCOUNT - BASIC</div><div class="producto-precio">$5 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="minecraft" style="display:block"
-                 data-nombre="MINECRAFT ACCOUNT - PREMIUM"
-                 data-precio="$7 USD"
-                 data-features="Acceso completo a la cuenta.|Cambio de Nombre y Skin.|Acceso a servidores Premium.|Garantía de 60 días.">
-                <div class="producto-imagen"><img class="single" src="img/minecraft_premium.png" alt="Minecraft Premium"></div>
-                <div class="producto-info"><div class="producto-nombre">MINECRAFT ACCOUNT - PREMIUM</div><div class="producto-precio">$7 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="minecraft" style="display:block"
-                 data-nombre="MINECRAFT ACCOUNT - ULTRA"
-                 data-precio="$10 USD"
-                 data-features="Cuenta Migrada (Microsoft).|Acceso total y permanente.|Capa Optifine incluida.|Garantía de por vida.">
-                <div class="producto-imagen"><img class="single" src="img/minecraft_ultra.png" alt="Minecraft Ultra"></div>
-                <div class="producto-info"><div class="producto-nombre">MINECRAFT ACCOUNT - ULTRA</div><div class="producto-precio">$10 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
+                <!-- DISCORD -->
+                <div class="producto-card" data-category="discord-cat" style="display:block"
+                     data-nombre="NITRO BOOST – 1 MES"
+                     data-precio="$4 USD"
+                     data-features="1 mes de duración.|2 Boosts incluidos.|Emojis y stickers globales.|Garantía total.">
+                    <div class="producto-imagen"><img class="single" src="img/discord.png" alt="Nitro 1 Mes"></div>
+                    <div class="producto-info"><div class="producto-nombre">NITRO BOOST – 1 MES</div><div class="producto-precio">$4 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="discord-cat" style="display:block"
+                     data-nombre="NITRO BOOST – ANUAL"
+                     data-precio="$35 USD"
+                     data-features="12 meses de duración.|2 Boosts mensuales.|Mejor precio del mercado.|Garantía de 1 año.">
+                    <div class="producto-imagen"><img class="single" src="img/discord.png" alt="Nitro Anual"></div>
+                    <div class="producto-info"><div class="producto-nombre">NITRO BOOST – ANUAL</div><div class="producto-precio">$35 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="discord-cat" style="display:block"
+                     data-nombre="RANDOM DECORATIONS"
+                     data-precio="$2 USD"
+                     data-features="Decoración de perfil aleatoria.|Efectos visuales únicos.|Entrega por código.|Garantía de activación.">
+                    <div class="producto-imagen"><img class="single" src="img/discord_decos.png" alt="Random Decos"></div>
+                    <div class="producto-info"><div class="producto-nombre">RANDOM DECORATIONS</div><div class="producto-precio">$2 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="discord-cat" style="display:block"
+                     data-nombre="SPECIFIC DECORATIONS"
+                     data-precio="$5 USD"
+                     data-features="Elige la decoración que quieras.|Frames y efectos exclusivos.|Personalización total.|Garantía de activación.">
+                    <div class="producto-imagen"><img class="single" src="img/discord_decos.png" alt="Specific Decos"></div>
+                    <div class="producto-info"><div class="producto-nombre">SPECIFIC DECORATIONS</div><div class="producto-precio">$5 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
 
-            <!-- OTROS -->
-            <div class="producto-card" data-category="otros" style="display:block"
-                 data-nombre="CAPCUT PRO – 1 MES"
-                 data-precio="$5.50 USD"
-                 data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/capcut.png" alt="CapCut"></div>
-                <div class="producto-info"><div class="producto-nombre">CAPCUT PRO – 1 MES</div><div class="producto-precio">$5.50 USD</div><button class="btn-comprar">Comprar</button></div>
-            </div>
-            <div class="producto-card" data-category="otros" style="display:block"
-                 data-nombre="NORDVPN – 1 AÑO"
-                 data-precio="$7 USD"
-                 data-features="1 año de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
-                <div class="producto-imagen"><img class="single" src="img/nordvpn.png" alt="NordVPN"></div>
-                <div class="producto-info"><div class="producto-nombre">NORDVPN – 1 AÑO</div><div class="producto-precio">$7 USD</div><button class="btn-comprar">Comprar</button></div>
+                <!-- ROBUX -->
+                <div class="producto-card" data-category="robux" style="display:block"
+                     data-nombre="1,000 ROBUX"
+                     data-precio="$8 USD"
+                     data-features="1.000 Robux para tu cuenta.|Entrega inmediata por ticket.|Compra 100% segura y garantizada.">
+                    <div class="producto-imagen"><img class="single" src="img/robux.png" alt="1000 Robux"></div>
+                    <div class="producto-info"><div class="producto-nombre">1,000 ROBUX</div><div class="producto-precio">$8 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+
+                <!-- MINECRAFT -->
+                <div class="producto-card" data-category="minecraft" style="display:block"
+                     data-nombre="6 MINECRAFT ACCOUNTS (BASIC)"
+                     data-precio="$15 USD"
+                     data-features="Pack de 6 cuentas básicas.|Garantía de 1 semana.|Entrega por ticket.|Ideal para grupos.">
+                    <div class="producto-imagen"><img class="single" src="img/minecraft_6pack.png" alt="6 Minecraft Pack"></div>
+                    <div class="producto-info"><div class="producto-nombre">6 MINECRAFT ACCOUNTS (BASIC)</div><div class="producto-precio">$15 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+
+                <!-- OTROS -->
+                <div class="producto-card" data-category="otros" style="display:block"
+                     data-nombre="CAPCUT PRO – 1 MES"
+                     data-precio="$5.50 USD"
+                     data-features="1 mes de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/capcut.png" alt="CapCut"></div>
+                    <div class="producto-info"><div class="producto-nombre">CAPCUT PRO – 1 MES</div><div class="producto-precio">$5.50 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
+                <div class="producto-card" data-category="otros" style="display:block"
+                     data-nombre="NORDVPN – 1 AÑO"
+                     data-precio="$7 USD"
+                     data-features="1 año de duración.|Acceso ilimitado a todo el catálogo.|Calidad Full HD.|1 dispositivo simultáneo.|Sin anuncios.">
+                    <div class="producto-imagen"><img class="single" src="img/nordvpn.png" alt="NordVPN"></div>
+                    <div class="producto-info"><div class="producto-nombre">NORDVPN – 1 AÑO</div><div class="producto-precio">$7 USD</div><button class="btn-comprar">Comprar</button></div>
+                </div>
             </div>
         </div>
     </div>
@@ -409,6 +392,16 @@
 <footer>
     <p>🎃 SpookyStore © 2025 · Todos los derechos reservados · Hecho con 💀</p>
 </footer>
+
+<div class="modal" id="producto-modal">
+    <div class="modal-content">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <h2 class="modal-title" id="modal-prod-title">Nombre del Producto</h2>
+        <div class="modal-price" id="modal-prod-price" style="font-family:'Cinzel',serif;font-size:1.8rem;color:var(--accent-orange);text-align:center;margin-bottom:1rem;">$0.00</div>
+        <ul class="modal-features" id="modal-prod-features"></ul>
+        <button class="modal-buy-btn" id="modal-buy-btn">CONTINUAR AL DISCORD</button>
+    </div>
+</div>
 
 <script>
     const DISCORD = 'https://discord.gg/CK5FDH98eW';
@@ -419,96 +412,51 @@
     document.addEventListener('mousemove', e => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-        setTimeout(() => { follower.style.left = e.clientX + 'px'; follower.style.top = e.clientY + 'px'; }, 80);
+        follower.style.left = e.clientX + 'px';
+        follower.style.top = e.clientY + 'px';
     });
 
     // Particles
-    const emojis = ['🎃','👻','💀','🕷️','🦇','🕯️','🌙','⚰️'];
-    const pc = document.getElementById('particles-container');
-    for (let i = 0; i < 18; i++) {
+    const particlesContainer = document.getElementById('particles-container');
+    const particleTypes = ['🎃', '👻', '💀', '🦇', '🕷️'];
+    function createParticle() {
         const p = document.createElement('div');
         p.className = 'particle';
-        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (8 + Math.random() * 12) + 's';
-        p.style.animationDelay = (Math.random() * 10) + 's';
-        p.style.fontSize = (.6 + Math.random() * .8) + 'rem';
-        pc.appendChild(p);
+        p.innerText = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        particlesContainer.appendChild(p);
+        setTimeout(() => p.remove(), 5000);
     }
+    setInterval(createParticle, 300);
 
-    // Bats
-    const bc = document.getElementById('bats-container');
-    for (let i = 0; i < 5; i++) {
-        const b = document.createElement('div');
-        b.className = 'bat'; b.textContent = '🦇';
-        b.style.top = (10 + Math.random() * 50) + '%';
-        b.style.animationDuration = (10 + Math.random() * 15) + 's';
-        b.style.animationDelay = (Math.random() * 12) + 's';
-        bc.appendChild(b);
-    }
-
-    // Typewriter
-    const phrases = ['Precios que dan miedo 💀','Entregas inmediatas ⚡','100% Garantía 🛡️','Tu tienda de confianza 🎃'];
-    let pi = 0, ci = 0, deleting = false;
-    const tw = document.getElementById('typewriter-text');
-    function type() {
-        const phrase = phrases[pi];
-        if (!deleting) {
-            tw.textContent = phrase.slice(0, ++ci);
-            if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
-        } else {
-            tw.textContent = phrase.slice(0, --ci);
-            if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
-        }
-        setTimeout(type, deleting ? 50 : 80);
-    }
-    type();
-
-    // Counter
-    let started = false;
-    const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && !started) {
-            started = true;
-            const el = document.getElementById('stat1');
-            let n = 0;
-            const iv = setInterval(() => { n += 4; el.textContent = n + '+'; if (n >= 200) { el.textContent = '200+'; clearInterval(iv); } }, 20);
-        }
-    }, {threshold:.5});
-    observer.observe(document.querySelector('.hero-stats'));
-
-    // Generic modal open/close
-    function openModal(id) {
-        const m = document.getElementById(id);
-        m.classList.add('open');
-        m.querySelectorAll('.modal-close').forEach(btn => btn.onclick = () => m.classList.remove('open'));
-        m.onclick = e => { if (e.target === m) m.classList.remove('open'); };
-    }
-    // document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', e => e.preventDefault()));
-
-    // Producto modal
+    // Modal Logic
     const prodModal = document.getElementById('producto-modal');
-    document.getElementById('prod-modal-close').onclick = () => prodModal.classList.remove('open');
-    prodModal.onclick = e => { if (e.target === prodModal) prodModal.classList.remove('open'); };
-    document.getElementById('modal-btn-comprar').onclick = () => window.open(DISCORD, '_blank');
+    const closeModal = document.getElementById('close-modal');
+    const modalBuyBtn = document.getElementById('modal-buy-btn');
+
+    closeModal.onclick = () => prodModal.classList.remove('open');
+    window.onclick = (e) => { if(e.target == prodModal) prodModal.classList.remove('open'); }
+    modalBuyBtn.onclick = () => window.open(DISCORD, '_blank');
 
     function openProductoModal(card) {
         const nombre = card.dataset.nombre;
         const precio = card.dataset.precio;
         const features = card.dataset.features.split('|');
-        const imgEl = card.querySelector('img');
-        document.getElementById('modal-prod-img').src = imgEl ? imgEl.src : '';
-        document.getElementById('modal-prod-nombre').textContent = nombre;
-        document.getElementById('modal-prod-precio').textContent = precio;
+        
+        document.getElementById('modal-prod-title').innerText = nombre;
+        document.getElementById('modal-prod-price').innerText = precio;
         const ul = document.getElementById('modal-prod-features');
         ul.innerHTML = features.map(f => `<li>${f}</li>`).join('');
         prodModal.classList.add('open');
     }
 
     // Attach click to all buy buttons
-    document.querySelectorAll('.btn-comprar').forEach(btn => {
+    document.querySelectorAll('.btn-comprar, .buy-button').forEach(btn => {
         btn.addEventListener('click', e => {
             e.stopPropagation();
-            openProductoModal(btn.closest('.producto-card') || btn.closest('.product-section'));
+            const card = btn.closest('.producto-card') || btn.closest('.product-section');
+            openProductoModal(card);
         });
     });
 
